@@ -21,6 +21,11 @@
     <%= form.text_field :description %>
   </div>
 
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(@statuses) %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -58,3 +58,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'net-smtp', '~> 0.3.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
+
+gem "kaminari", "~> 1.2"

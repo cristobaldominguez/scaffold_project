@@ -1,9 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_statuses, only: [:new, :edit]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.where(status: :published)
+    # @posts = Post.all
   end
 
   # GET /posts/1 or /posts/1.json
@@ -13,10 +15,6 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-  end
-
-  # GET /posts/1/edit
-  def edit
   end
 
   # POST /posts or /posts.json
@@ -32,6 +30,10 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /posts/1/edit
+  def edit
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
@@ -63,8 +65,12 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
+    def set_statuses
+      @statuses = Post.statuses.keys.map {|key| [key.capitalize, key]}
+    end
+
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :description)
+      params.require(:post).permit(:title, :description, :status)
     end
 end
